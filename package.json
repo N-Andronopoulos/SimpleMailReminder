@@ -1,0 +1,33 @@
+{
+  "name": "SimpleMailReminder",
+  "version": "0.0.0",
+  "description": "A simple imap based email reminder service.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/N-Andronopoulos/SimpleMailReminder.git"
+  },
+    "dependencies":{
+    "imap":"*",
+    "nodemailer":"*",
+    "mailparser":"*"
+  },
+  "private":"true",
+  "keywords": [
+    "imap",
+    "email",
+    "mail",
+    "remind",
+    "reminder",
+    "service"
+  ],
+  "author": "Nikolas Andronopoulos, Alex Sibetheros",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/N-Andronopoulos/SimpleMailReminder/issues"
+  },
+  "homepage": "https://github.com/N-Andronopoulos/SimpleMailReminder"
+}
