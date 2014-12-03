@@ -1,17 +1,25 @@
 'use strict';
 
-//Requirements
+/**
+ *
+ * @author Nikolas Andronopoulos
+ * @version 0.0.1
+ */
+
+
 var Imap = require('imap'),
     inspect = require('util').inspect,
     fs = require('fs'),
     loginInfo = require('./real-info.json');
 
-//Create new Imap object
 var imap = new Imap(loginInfo);
-
 var dataToReturn=[];
 var connected = false;
 
+/**
+ *
+ * @param cb The callback function, calls with result boxes.
+ */
 function getMailBoxes(cb){
     imap.once('ready', function(){
         imap.getBoxes(function(err, boxes) {
@@ -21,25 +29,43 @@ function getMailBoxes(cb){
     });
 }
 
+/**
+ *
+ * @param cb The callback function. No arguments.
+ */
 function connectToImap(cb){
     imap.connect();
     connected = true;
     cb();
 }
-
+/**
+ *
+ * @param cb The callback function. No arguments.
+ */
 function disconnectFromImap(cb){
     imap.end();
     connected = false;
     cb();
 }
 
+/**
+ *
+ * @param mailBox Mainbox name to use.
+ * @param fetchParams Arguments for fetch function. eg.
+ * {
+ *    bodies: '',
+ *    struct: true,
+ *    markSeen: false
+ * }
+ * @param cb cb The callback function. No arguments.
+ */
 function getUnseenMailFromBox(mailBox, fetchParams, cb){
     imap.once('ready', function() {
         imap.openBox(mailBox, true,function(err, box){
             if (err) throw err;
             imap.search(['UNSEEN'], function(err, results) {
                 if (err) throw err;
-                var f = imap.fetch(results,fetchParams);
+                var f = imap.fetch(results, fetchParams);
                 f.on('message', function(msg, seqno) {
                     console.log('Message #%d', seqno);
                     var prefix = '(#' + seqno + ') ';
@@ -65,20 +91,42 @@ function getUnseenMailFromBox(mailBox, fetchParams, cb){
     });
 }
 
-function moveMailFromTO(mailID, fromBox, toBox){
+/**
+ *
+ * @param mailID The urid of the mail to be moved.
+ * @param fromBox The name of the box to move to.
+ * @param toBox The name of the box to move from.
+ * @param cb The callback function. No arguements.
+ */
+function moveMailFromTO(mailID, fromBox, toBox, cb){
     imap.once('ready', function(){
-
+        imap.openBox(fromBoxm, false, function(err, box){
+           if (err) throw err;
+            imap.move(mailID, toBox, function(){
+                cb();
+            });
+        });
     });
 }
 
+//test stuff gets mail boxes and unread mails from INBOX.
 connectToImap(function(){
     getMailBoxes(function(boxes){
-        //TODO how do we get only the box names???
         console.log(inspect(boxes, {
              showHidden: true,
              depth: null ,
              colors: true
         }));
+    });
+    getUnseenMailFromBox('INBOX', {
+        bodies: '',
+        struct: true,
+        markSeen: false
+    }, function(){
+        console.log("ampla");
+        for(var tmp in dataToReturn){
+            console.log(dataToReturn[tmp]);
+        }
         disconnectFromImap(function() {
             console.log('bye');
         });
