@@ -11,9 +11,9 @@
     "url": "https://github.com/N-Andronopoulos/SimpleMailReminder.git"
   },
     "dependencies":{
-    "imap":"*",
-    "nodemailer":"*",
-    "mailparser":"*"
+    "imap":"^0.8.14",
+    "nodemailer":"^0.4.6",
+    "mailparser":"^1.3.0"
   },
   "private":"true",
   "keywords": [

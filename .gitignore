@@ -29,3 +29,10 @@ node_modules
 
 #Ignore real login info file during development
 real-info.json
+
+#ignore webstorm profiles
+.idea
+
+#temps
+temp
+tmp
