@@ -134,12 +134,3 @@ connectToImap(function(){
         });
     });
 });
-
-
-var throws = function (err, data, cb) {
-    if (err) {
-        throw new Error(err);
-    }
-    cb(data);
-};
-
