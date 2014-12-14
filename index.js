@@ -100,23 +100,25 @@ function getUnseenMailFromBox(mailBox, fetchParams, cb){
  */
 function moveMailFromTO(mailID, fromBox, toBox, cb){
     imap.once('ready', function(){
-        imap.openBox(fromBoxm, false, function(err, box){
-           if (err) throw err;
-            imap.move(mailID, toBox, function(){
-                cb();
-            });
-        });
+        imap.openBox(fromBoxm, false, throws(function(box){
+            imap.move(mailID, toBox, cb);
+        }));
     });
 }
+
 
 //test stuff gets mail boxes and unread mails from INBOX.
 connectToImap(function(){
     getMailBoxes(function(boxes){
-        console.log(inspect(boxes, {
-             showHidden: true,
-             depth: null ,
-             colors: true
-        }));
+        //Prints the whole object.
+        //console.log(inspect(boxes, {
+        //     showHidden: true,
+        //     depth: null ,
+        //     colors: true
+        //}));
+
+        //Just the mailbox names.
+        console.log(Object.keys(boxes));
     });
     getUnseenMailFromBox('INBOX', {
         bodies: '',
@@ -133,4 +135,11 @@ connectToImap(function(){
     });
 });
 
+
+var throws = function (err, data, cb) {
+    if (err) {
+        throw new Error(err);
+    }
+    cb(data);
+};
 
