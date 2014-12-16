@@ -123,6 +123,7 @@ connectToImap(function(){
         mailboxesArray = Object.keys(boxes);
     });
     getUnseenMailFromBox('INBOX', {
+//TODO change Inbox to mailboxarray[0]
         bodies: '',
         struct: true,
         markSeen: false
