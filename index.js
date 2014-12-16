@@ -124,7 +124,6 @@ connectToImap(function(){
     });
     getUnseenMailFromBox('INBOX', {
 //TODO change Inbox to mailboxarray[0]
-
         bodies: '',
         struct: true,
         markSeen: false
