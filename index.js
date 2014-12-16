@@ -109,6 +109,7 @@ function moveMailFromTO(mailID, fromBox, toBox, cb){
 
 //test stuff gets mail boxes and unread mails from INBOX.
 connectToImap(function(){
+    var mailboxesArray;
     getMailBoxes(function(boxes){
         //Prints the whole object.
         //console.log(inspect(boxes, {
@@ -119,6 +120,7 @@ connectToImap(function(){
 
         //Just the mailbox names.
         console.log(Object.keys(boxes));
+        mailboxesArray = Object.keys(boxes);
     });
     getUnseenMailFromBox('INBOX', {
         bodies: '',
@@ -126,9 +128,7 @@ connectToImap(function(){
         markSeen: false
     }, function(){
         console.log("ampla");
-        for(var tmp in dataToReturn){
-            console.log(dataToReturn[tmp]);
-        }
+        for(var tmp in dataToReturn)console.log(dataToReturn[tmp]);
         disconnectFromImap(function() {
             console.log('bye');
         });
