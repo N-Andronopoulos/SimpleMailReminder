@@ -6,43 +6,29 @@
  *
  */
 
-//TODO Functionalize this.
 //TODO Maybe keep the connection open and do other stuff. FUTURE
-
 
 //Imports and Jsons
 var Imap = require('imap');
-var inspect = require('util').inspect;
-var fs = require('fs');
 var loginInfo = require('./real-info.json');
 var S = require('string');
 
-//TODO Make these a single options json.
 //Data
 var imap = new Imap(loginInfo);
 var msgIDsToRemind=[];
-var destinationBox='Reminds';
-var tagInMail = "##Remind:";
 
 /**
- * The parameters used in imap.fetch
- * //TODO markSeen=true after development is complete.
- * @type {{bodies: string, struct: boolean, markSeen: boolean}}
+ * The config json.
+ * @param config
  */
-var fetchParams = {
-    bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)',
-    struct: false,
-    markSeen: false
-};
-
-exports.init = function() {
+exports.init = function(config) {
     /**
      * Setup listeners.
      */
     imap.once('ready', function () {
         imap.openBox('INBOX', true, function (err, box) {
             imap.search(['UNSEEN'], function (err, results) {
-                var f = imap.fetch(results, fetchParams);
+                var f = imap.fetch(results, config.fetchParams);
                 f.on('message', function (msg, seqno) {
                     /**
                      * Use to get the mail object stream.
@@ -76,7 +62,7 @@ exports.init = function() {
                         });
                         stream.on('end', function () {
                             var temp = buffer.split('\n')[1].split("Subject: ");
-                            if (S(temp).contains(tagInMail)) {
+                            if (S(temp).contains(config.tagInMail)) {
                                 console.log("This mail needs to be reminded!");
                                 console.log(temp[1]);
                                 gotRemMail = true;
@@ -101,7 +87,7 @@ exports.init = function() {
                             console.log("Mail UID: " + msgIDsToRemind[id] + " needs to be moved.");
 
                         for (var id in msgIDsToRemind)
-                            imap.move(msgIDsToRemind[id], destinationBox, function (err) {
+                            imap.move(msgIDsToRemind[id], config.destinationBox, function (err) {
                                 if (err) throw err;
                             });
                     } else {
@@ -109,6 +95,7 @@ exports.init = function() {
                     }
                     //Ends the imap connection.
                     imap.end();
+                    msgIDsToRemind = [];
                 });
             });
         });

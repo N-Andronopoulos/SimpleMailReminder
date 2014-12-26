@@ -1,0 +1,9 @@
+{
+  "fetchParams": {
+    "bodies": "HEADER.FIELDS (FROM TO SUBJECT DATE)",
+    "struct": false,
+    "markSeen": false
+  },
+  "destinationBox": "Reminds",
+  "tagInMail": "##Reminds"
+}
