@@ -8,6 +8,7 @@
 var config = require("./config/config.json");
 var loginInfo = require('./config/real-info.json');
 var moveMailService = require("./lib/findProcessMoveMail.js");
+var cleanMailBox = require("./lib/cleanMailBox.js");
 
 //Logger stuff.
 var loggerConfig = require("./config/loggerConfig");
@@ -22,3 +23,5 @@ logger.info("System starting...");
 moveMailService.init(loginInfo, config, log4js.getLogger("Mail move service."));
 
 //TODO File Logger doesn't write anything to it!...
+
+cleanMailBox.init(loginInfo, config, log4js.getLogger("MailBox clean service."));
