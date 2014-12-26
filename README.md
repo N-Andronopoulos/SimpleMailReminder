@@ -4,14 +4,14 @@ SimpleMailReminder
 
 A simple imap mail reminder service based on nodejs.
 
-Consept
-==================
+##Consept
+TODO
 
-Service Rules
-==================
+##Service Rules
+TODO
 
-Installation
-==================
+##Installation
+TODO
 
-Usage
-==================
+##Usage
+TODO
