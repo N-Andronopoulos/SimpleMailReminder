@@ -1,6 +1,0 @@
--index line 125 change Inbox to Array[0]
--make mail parser work
-
--read how event listerns work(destroy listers/object)
-
--create json object for sender
