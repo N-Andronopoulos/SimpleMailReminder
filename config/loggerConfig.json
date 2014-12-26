@@ -1,0 +1,16 @@
+{
+  "appenders": [
+    {
+      "type": "console"
+    },
+    {
+      "type": "file",
+      "absolute": true,
+      "filename": "./logs/log_file.log",
+      "maxLogSize": 1024,
+      "backups": 10,
+      "category": "absolute-logger"
+    }
+  ],
+  "replaceConsole": true
+}
