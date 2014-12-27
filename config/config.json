@@ -5,5 +5,6 @@
     "markSeen": true
   },
   "destinationBox": "Reminds",
-  "tagInMail": "##Remind"
+  "tagInMail": "##Remind: ",
+  "endTagInMail": "##"
 }
