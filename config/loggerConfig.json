@@ -6,11 +6,11 @@
     {
       "type": "file",
       "absolute": true,
-      "filename": "./logs/log_file.log",
-      "maxLogSize": 1024,
-      "backups": 10,
-      "category": "absolute-logger"
-    }
+      "filename": "logs/log_file.log",
+      "numBackups": 3
+          }
   ],
   "replaceConsole": true
 }
+
+
