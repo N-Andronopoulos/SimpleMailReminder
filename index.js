@@ -19,11 +19,9 @@ log4js.configure(loggerConfig);
 //Main (index.js) logger.
 var logger = log4js.getLogger("Main program.");
 
-logger.info("System starting...");
+process.name = "SimpleMailReminder";
 
 moveMailService(loginInfo, config, log4js.getLogger("[Mail move service]"));
-
 cleanMailBox(loginInfo, config, log4js.getLogger("[MailBox clean service]"));
-
 checkRemindService(loginInfo, config, log4js.getLogger("[Mail check service]"));
 
