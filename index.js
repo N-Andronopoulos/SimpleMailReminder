@@ -1,7 +1,7 @@
 /**
  *
  * @author Nikolas Andronopoulos
- * @version 0.1.0
+ * @version 0.2.0
  */
 
 //Configs
@@ -18,10 +18,18 @@ log4js.configure(loggerConfig);
 
 //Main (index.js) logger.
 var logger = log4js.getLogger("Main program.");
+logger.debug("Service starting...");
 
-process.name = "SimpleMailReminder";
+var Imap = require('imap');
+var imap = new Imap(loginInfo);
 
-moveMailService(loginInfo, config, log4js.getLogger("[Mail move service]"));
-cleanMailBox(loginInfo, config, log4js.getLogger("[MailBox clean service]"));
-checkRemindService(loginInfo, config, log4js.getLogger("[Mail check service]"));
+var terminate = function(){
+    imap.end();
+    logger.debug("Connection is terminated.");
+};
 
+moveMailService(imap, loginInfo, config, log4js.getLogger("[Find and move]"), null);
+cleanMailBox(imap, loginInfo, config, log4js.getLogger("[MailBox clean]"), null);
+checkRemindService(imap, loginInfo, config, log4js.getLogger("[Check mail date]"), terminate);
+
+imap.connect();
