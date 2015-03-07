@@ -37,8 +37,8 @@ function terminate(){
     logger.debug("Connection is terminated.");
 };
 
-moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
-cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
-checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
+moveMailService   (imap, config, log4js.getLogger("[Find and move]")  , null       );
+cleanMailBox      (imap, config, log4js.getLogger("[MailBox clean]")  , null       );
+checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate());
 
 imap.connect();
