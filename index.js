@@ -1,7 +1,7 @@
 /**
  *
  * @author Nikolas Andronopoulos
- * @version 0.2.0
+ * @version 0.2.1
  */
 
 //Configs
@@ -21,15 +21,24 @@ var logger = log4js.getLogger("Main program.");
 logger.debug("Service starting...");
 
 var Imap = require('imap');
+
+/**
+ * Creates the instance of the Imap object with the provided login info.
+ * @type {Object}
+ * @param {JSON} The login json.
+ */
 var imap = new Imap(loginInfo);
 
-var terminate = function(){
+/**
+ * Terminates the imap connection.
+ */
+function terminate(){
     imap.end();
     logger.debug("Connection is terminated.");
 };
 
-moveMailService(imap, loginInfo, config, log4js.getLogger("[Find and move]"), null);
-cleanMailBox(imap, loginInfo, config, log4js.getLogger("[MailBox clean]"), null);
-checkRemindService(imap, loginInfo, config, log4js.getLogger("[Check mail date]"), terminate);
+moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
+checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
 
 imap.connect();
