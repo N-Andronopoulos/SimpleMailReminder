@@ -41,21 +41,23 @@ function terminate(){
 
 imap.once('ready', function(){
 
-    setInterval(function(){
-        moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
-    },3000);
-
-    setInterval(function(){
-        cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
-    },4000);
-
-    setInterval(function(){
-        checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
-    }, 5000);
-
     //setInterval(function(){
-    //    global.gc();
-    //},1000);
+    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+    //},100);
+    //
+    //setInterval(function(){
+    //    cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
+    //},400);
+    //
+    //setInterval(function(){
+    //    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
+    //}, 500);
+    //
+    ////setInterval(function(){
+    ////    global.gc();
+    ////},1000);
+
+    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
 
 });
 
