@@ -28,38 +28,52 @@ var Imap = require('imap');
  * @param {JSON} The login json.
  */
 var imap = new Imap(loginInfo);
+var imap2 = new Imap(loginInfo);
+var imap3 = new Imap(loginInfo);
 /**
  * Terminates the imap connection.
  */
-function terminate(test){
+function terminate(){
     setTimeout(function() {
         imap.end();
         logger.debug("Connection is terminated.");
-        logger.debug(test);
     },1000);
 };
 
+function close(){
+    imap.closeBox(function(){});
+}
+
+function close2(){
+    imap2.closeBox(function(){});
+}
+
+function close3(){
+    imap3.closeBox(function(){});
+}
+
 imap.once('ready', function(){
 
-    //setInterval(function(){
-    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
-    //},100);
+    setInterval(function(){
+        moveMailService(imap, config, log4js.getLogger("[Find and move]"), close);
+    },500);
     //
-    //setInterval(function(){
-    //    cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
-    //},400);
-    //
-    //setInterval(function(){
-    //    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
-    //}, 500);
-    //
-    ////setInterval(function(){
-    ////    global.gc();
-    ////},1000);
+    setInterval(function(){
+        cleanMailBox(imap2, config, log4js.getLogger("[MailBox clean]"), close2);
+    },500);
 
-    //moveMailService(imap, config, log4js.getLogger("[Find and move]"), terminate);
-    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
+    setInterval(function(){
+        checkRemindService(imap3, config, log4js.getLogger("[Check mail date]"), close3);
+    },1000);
+
+    //moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+    //
+    //setTimeout(function(){
+    //    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
+    //}, 1000);
     //cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), terminate);
 });
 
 imap.connect();
+imap2.connect();
+imap3.connect();
