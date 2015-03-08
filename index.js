@@ -33,12 +33,18 @@ var imap = new Imap(loginInfo);
  * Terminates the imap connection.
  */
 function terminate(){
-    imap.end();
-    logger.debug("Connection is terminated.");
+    setTimeout(function() {
+        imap.end();
+        logger.debug("Connection is terminated.");
+    },1000);
 };
 
-moveMailService   (imap, config, log4js.getLogger("[Find and move]")  , null     );
-cleanMailBox      (imap, config, log4js.getLogger("[MailBox clean]")  , null     );
-checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
+imap.once('ready', function(){
+    moveMailService(imap, config, log4js.getLogger("[Find and move]"), function(){
+        cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), function(){
+            checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
+        });
+    });
+});
 
 imap.connect();
