@@ -1,7 +1,7 @@
 /**
  *
  * @author Nikolas Andronopoulos
- * @version 0.2.3
+ * @version 0.2.5
  */
 
 //Configs
@@ -40,11 +40,23 @@ function terminate(){
 };
 
 imap.once('ready', function(){
-    moveMailService(imap, config, log4js.getLogger("[Find and move]"), function(){
-        cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), function(){
-            checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
-        });
-    });
+
+    setInterval(function(){
+        moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+    },3000);
+
+    setInterval(function(){
+        cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), null);
+    },4000);
+
+    setInterval(function(){
+        checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
+    }, 5000);
+
+    //setInterval(function(){
+    //    global.gc();
+    //},1000);
+
 });
 
 imap.connect();
