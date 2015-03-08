@@ -28,14 +28,14 @@ var Imap = require('imap');
  * @param {JSON} The login json.
  */
 var imap = new Imap(loginInfo);
-
 /**
  * Terminates the imap connection.
  */
-function terminate(){
+function terminate(test){
     setTimeout(function() {
         imap.end();
         logger.debug("Connection is terminated.");
+        logger.debug(test);
     },1000);
 };
 
@@ -57,9 +57,9 @@ imap.once('ready', function(){
     ////    global.gc();
     ////},1000);
 
-    //moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+    //moveMailService(imap, config, log4js.getLogger("[Find and move]"), terminate);
     checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
-
+    //cleanMailBox(imap, config, log4js.getLogger("[MailBox clean]"), terminate);
 });
 
 imap.connect();

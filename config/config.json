@@ -9,6 +9,11 @@
     "struct": false,
     "markSeen": false
   },
+  "createMailParams": {
+    "bodies" : "",
+    "struct": false,
+    "markSeen": true
+  },
   "destinationBox": "Reminds",
   "tagInMail": "##Remind: ",
   "endTagInMail": "##"
