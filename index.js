@@ -57,6 +57,7 @@ imap.once('ready', function(){
     ////    global.gc();
     ////},1000);
 
+    //moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
     checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), terminate);
 
 });

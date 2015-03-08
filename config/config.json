@@ -11,6 +11,5 @@
   },
   "destinationBox": "Reminds",
   "tagInMail": "##Remind: ",
-  "endTagInMail": "##",
-  "dateRegex" : "\/\\d+d|\\d+w|\\d+m\/g"
+  "endTagInMail": "##"
 }
