@@ -61,17 +61,15 @@ function close3() {
 imap.once('ready', function () {
 
     //setInterval(function() {
-    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), close);
+    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
     //}, 500);
     ////
     //setInterval(function() {
     //    cleanMailBox(imap2, config, log4js.getLogger("[MailBox clean]"), close2);
     //},500);
 
+    checkRemindService(imap3, config, log4js.getLogger("[Check mail date]"), close3);
 
-    setInterval(function () {
-        checkRemindService(imap3, config, log4js.getLogger("[Check mail date]"), close3);
-    },1000);
 
     //moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
     //

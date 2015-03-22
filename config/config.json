@@ -10,7 +10,7 @@
     "markSeen": false
   },
   "createMailParams": {
-    "bodies" : ["HEADER.FIELDS (TO FROM SUBJECT)","TEXT"],
+    "bodies" : [""],
     "struct": false,
     "markSeen": true
   },
