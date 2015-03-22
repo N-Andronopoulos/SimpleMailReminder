@@ -25,6 +25,10 @@ log4js.configure(loggerConfig);
 var logger = log4js.getLogger("Main program.");
 logger.debug("Service starting...");
 
+/**
+ * The Imap Object
+ * @type {Connection|exports}
+ */
 var Imap = require('imap');
 
 /**
@@ -33,41 +37,15 @@ var Imap = require('imap');
  * @param {json} The login json.
  */
 var imap = new Imap(loginInfo);
-var imap2 = new Imap(loginInfo);
-var imap3 = new Imap(loginInfo);
-/**
- * Terminates the imap connection.
- */
-/*function terminate() {
-    setTimeout(function () {
-        imap.end();
-        logger.debug("Connection is terminated.");
-    }, 1000);
-}*/
-function close(){
-    logger.info("box closed");
-    imap.closeBox();
-}
-
-function close2(){
-    imap2.closeBox();
-}
-
-function close3() {
-    //imap3.closeBox();
-    imap3.end();
-}
 
 imap.once('ready', function () {
 
-    setInterval(function(){
-        moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
-    },500);
+    //setInterval(function(){
+    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
+    //},500);
 
-    //checkRemindService(imap3, config, log4js.getLogger("[Check mail date]"), close3);
+    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
 
 });
 
 imap.connect();
-imap2.connect();
-imap3.connect();
