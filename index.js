@@ -46,32 +46,32 @@ var imap3 = new Imap(loginInfo);
 }*/
 function close(){
     logger.info("box closed");
-    imap.closeBox(function(){});
+    imap.closeBox();
 }
 
 function close2(){
-    imap2.closeBox(function(){});
+    imap2.closeBox();
 }
 
 function close3() {
-    imap3.closeBox();
+    //imap3.closeBox();
+    imap3.end();
 }
 
 imap.once('ready', function () {
 
-    setInterval(function() {
-        moveMailService(imap, config, log4js.getLogger("[Find and move]"), close);
-    }, 500);
-    //
-    setInterval(function() {
-        cleanMailBox(imap2, config, log4js.getLogger("[MailBox clean]"), close2);
-    },500);
+    //setInterval(function() {
+    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), close);
+    //}, 500);
+    ////
+    //setInterval(function() {
+    //    cleanMailBox(imap2, config, log4js.getLogger("[MailBox clean]"), close2);
+    //},500);
 
-    /*
 
     setInterval(function () {
         checkRemindService(imap3, config, log4js.getLogger("[Check mail date]"), close3);
-    },1000);*/
+    },1000);
 
     //moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
     //
