@@ -1,7 +1,7 @@
 /**
  *
  * @author Nikolas Andronopoulos
- * @version 0.2.5
+ * @version 0.3.0
  */
 
 'use strict';
@@ -27,25 +27,29 @@ logger.debug("Service starting...");
 
 /**
  * The Imap Object
- * @type {Connection|exports}
+ * @type {exports}
  */
 var Imap = require('imap');
 
 /**
  * Creates the instance of the Imap object with the provided login info.
  * @type {Object}
- * @param {json} The login json.
+ * @param {object} The login json.
  */
 var imap = new Imap(loginInfo);
 
+//Main listener
 imap.once('ready', function () {
-
-    //setInterval(function(){
-    //    moveMailService(imap, config, log4js.getLogger("[Find and move]"), null);
-    //},500);
-
-    checkRemindService(imap, config, log4js.getLogger("[Check mail date]"), null);
-
+    moveMailService(imap, config, log4js.getLogger("[Find Service]"), function () {
+        cleanMailBox(imap, config, log4js.getLogger("[Cleaner Service]"), function () {
+            checkRemindService(imap, config, log4js.getLogger("[Mail send service.]"), function () {
+                imap.end();
+                logger.debug("Circle completed.");
+                process.exit(1);
+            });
+        });
+    });
 });
 
+//Start the thing
 imap.connect();
