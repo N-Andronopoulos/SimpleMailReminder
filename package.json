@@ -1,6 +1,6 @@
 {
   "name": "SimpleMailReminder",
-  "version": "0.2.6",
+  "version": "1.0.1",
   "description": "A simple imap based email reminder service.",
   "main": "index.js",
   "scripts": {

@@ -1,7 +1,7 @@
 /**
  *
  * @author Nikolas Andronopoulos
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 'use strict';
@@ -16,6 +16,9 @@ var moveMailService = require("./lib/findProcessMoveMail.js");
 var cleanMailBox = require("./lib/cleanMailBox.js");
 var checkRemindService = require('./lib/checkReminds.js');
 
+//CronTab
+var crontab = require('node-crontab');
+
 //Logger stuff.
 var loggerConfig = require("./config/loggerConfig");
 var log4js = require('log4js');
@@ -23,7 +26,6 @@ log4js.configure(loggerConfig);
 
 //Main (index.js) logger.
 var logger = log4js.getLogger("Main program.");
-logger.debug("Service starting...");
 
 /**
  * The Imap Object
@@ -38,18 +40,20 @@ var Imap = require('imap');
  */
 var imap = new Imap(loginInfo);
 
-//Main listener
-imap.once('ready', function () {
+//Main listener for open connection to IMAP
+imap.on('ready', function () {
     moveMailService(imap, config, log4js.getLogger("[Find Service]"), function () {
         cleanMailBox(imap, config, log4js.getLogger("[Cleaner Service]"), function () {
             checkRemindService(imap, config, log4js.getLogger("[Mail send service.]"), function () {
                 imap.end();
                 logger.debug("Circle completed.");
-                process.exit(1);
             });
         });
     });
 });
 
 //Start the thing
-imap.connect();
+logger.info("Starting scheduler");
+crontab.scheduleJob(config.serviceRepeat, function(){
+    imap.connect();
+});

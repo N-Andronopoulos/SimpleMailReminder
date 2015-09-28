@@ -5,7 +5,7 @@
     },
     {
       "type": "file",
-      "maxLogSize": 204800,
+      "maxLogSize": 2048000,
       "filename": "logs/log_file.log",
       "numBackups": 3
     }
