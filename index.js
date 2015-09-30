@@ -54,6 +54,8 @@ imap.on('ready', function () {
 
 //Start the thing
 logger.info("Starting scheduler");
+imap.connect();
+//Repeat after X. [default=hourly]
 crontab.scheduleJob(config.serviceRepeat, function(){
     imap.connect();
 });
