@@ -1,5 +1,7 @@
 SimpleMailReminder
 ==================
+[![Dependency Status](https://david-dm.org/N-Andronopoulos/SimpleMailReminder.svg)](https://david-dm.org/N-Andronopoulos/SimpleMailReminder)
+
 ![XKCD 970](https://sslimgs.xkcd.com/comics/the_important_field.png)
 
 A simple imap mail reminder service based on nodejs.
