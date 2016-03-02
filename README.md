@@ -19,7 +19,7 @@ And follow the installer's instructions to setup the program.
 If you wish to run the installer again afterwards, just run 
 the above command again.
 
-##Consept
+##Concept
 **NOTE THE REMIND SERVICE WILL DELETE ANY MAIL IN THE INBOX FOLDER!**
 
 **USE DEDICATED IMAP MAIL ACCOUNT FOR THIS PLEASE**
